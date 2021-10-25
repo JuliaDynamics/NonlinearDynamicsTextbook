@@ -24,8 +24,8 @@ for i in 1:length(rs)
 	chaotici = findall(a -> a>0.1, x)
 	regulari = setdiff(1:length(x), chaotici)
 	axs[i].plot(0:length(x)-1, x; lw = 0.5, color = "C0")
-	axs[i].plot(regulari .- 1, x[regulari]; ls = "None", marker = "o", color = "C0")
-	axs[i].plot(chaotici .- 1, x[chaotici]; ls = "None", marker = "o", color = "C1")
+	axs[i].plot(regulari .- 1, x[regulari]; ls = "None", marker = "o", color = "C2")
+	axs[i].plot(chaotici .- 1, x[chaotici]; ls = "None", marker = "o", color = "C0")
 	axs[i].set_ylim(-0.1, 1.2)
 	axs[i].set_yticks([0, 1])
 	# axs[i].text(0.99, 0.90, "\$r=$(rs[i])\$"; bbox = bbox,
@@ -42,11 +42,11 @@ axs[2].axvspan(21, 40; color = "C3", alpha = 0.5)
 # laminar arrow
 xc = (135 + 169)/2
 xspan = (169 - 135)
-nice_arrow!(ax2, xc, 1.0, xspan, 0; tex = "\$\\ell\$", yo = 0.0, xo = -xspan/2 - 5)
+nice_arrow!(ax2, xc, 1.0, xspan, 0; tex = "\$\\ell\$", yo = 0.0, xo = -xspan/2 - 5, color = "C2")
 
 xc = (65 + 100)/2
 xspan = abs(65 - 100)
-nice_arrow!(ax2, xc, 1.0, xspan, 0; tex = "\$c\$", yo = 0.0, xo = xspan/2, color = "C1")
+nice_arrow!(ax2, xc, 1.0, xspan, 0; tex = "\$c\$", yo = 0.0, xo = xspan/2, color = "C0")
 
 # Do the cobweb plot
 function cobweb(t) # transform timeseries t into cobweb (point2D)
@@ -71,7 +71,7 @@ for ax in (axc, axi)
 	_r = rs[2]
 	set_parameter!(lo, 1, _r)
 	f = lo.f.(xs, Ref([_r]), 0)
-	ax.plot(xs, f, color = "C2")
+	ax.plot(xs, f, color = "C1")
 	ax.plot([0, 1], [0,1]; lw = 1.0, color = "k")
 	x = trajectory(lo, 60; Ttr = 100)
 	cx, cy = cobweb(x)
@@ -87,4 +87,4 @@ axi.set_xlim(z, z+w)
 axi.axis("off")
 
 fig.tight_layout(pad = 0.3)
-# wsave(plotsdir("intermittency_manneville"), fig)
+wsave(plotsdir("4", "intermittency_manneville"), fig)

@@ -14,17 +14,23 @@ end
 Base.iterate(c::CyclicContainer, i = 1) = iterate(c.c, i)
 
 COLORS = [
-    "#6F4AC7",
-    "#33CBD8",
+    "#6D44D0",
+    "#2CB3BF",
     "#1B1B1B",
-    "#E82727",
-    "#535D7F",
-    "#A6D210",
+    "#DA5210",
+    "#866373",
+    "#03502A"
 ]
 
 COLORSCHEME = COLORS
 
 CCOLORS = CyclicContainer(COLORS)
-LINESTYLES = CyclicContainer(["-", ":", "--", "-."])
+NONBLACK = CyclicContainer(COLORS[[1,2,4,5]])
+BLACK = COLORS[3]
 
-export COLORSCHEME, COLORS, CCOLORS, LINESTYLES
+LINESTYLES = CyclicContainer(["-", "--", "-.",  ":",])
+
+figx = 16 # default width correspoding to full text width, in inches
+figy = 5  # default height corresponding to 1 row of plots, in inches
+
+export COLORSCHEME, COLORS, CCOLORS, LINESTYLES, figx, figy

@@ -97,7 +97,7 @@ end
 
 # Continuation loop: do continuation for a given amount of steps
 function continuation(f, J, x0, p0;
-        pmin, pmax, dp0, dx0,
+        pmin, pmax, dp0, dx0, N = 1000
     )
 
     z0 = vcat(x0, p0); zs = [z0]; dz0 = vcat(dx0, dp0)

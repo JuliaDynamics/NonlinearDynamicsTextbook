@@ -43,11 +43,11 @@ botrow[3].plot(data2[:, 1], data2[:, 2], ls = "None", marker = ".", color = COLO
 botrow[3].axis("off")
 
 for (i, zbox) in enumerate((zbox1, zbox2))
-    axis_zoomin!(botrow[i+1], botrow[i], zbox, zbox, COLORS[i+1])
+    axis_zoomin!(botrow[i+1], botrow[i], zbox, zbox, COLORS[[4,3][i]])
     botrow[i+1].set_xlim(zbox[1][1], zbox[2][1])
     botrow[i+1].set_ylim(zbox[1][2], zbox[2][2])
 end
 
 fig.tight_layout(pad = 0.3)
 fig.subplots_adjust(top = 0.98, bottom = 0.05, right = 0.95, left = 0.05, wspace=0.1, hspace = 0.1)
-wsave(plotsdir("henon_zoom"), fig)
+wsave(plotsdir("5", "henon_zoom"), fig)

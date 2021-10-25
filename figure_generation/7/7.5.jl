@@ -8,7 +8,7 @@ using TimeseriesSurrogates, Statistics, Random
 
 ro = Systems.roessler(ones(3); a = 0.165, b = 0.2, c = 10.0)
 
-tr = trajectory(ro, 500; dt = 0.1, Ttr = 500)
+tr = trajectory(ro, 500; Δt = 0.1, Ttr = 500)
 x = tr[:, 1]
 x ./= std(x)
 x .+= randn(length(x))*std(x)*0.1
@@ -56,8 +56,8 @@ ax2 = fig.add_subplot(1,4,3)
 ax3 = fig.add_subplot(1,4,4)
 axs = [ax1, ax2, ax3]
 
-axs[1].plot(x .+ 2,  label = "Rössler", lw = 1.2)
-axs[1].plot(s .- 2,label = "ARMA", lw = 1.0, color = "C2")
+axs[1].plot(x .+ 2,  label = "Rössler", lw = 1.5)
+axs[1].plot(s .- 2,label = "ARMA", lw = 1.5, color = "C2")
 axs[1].set_xlim(0, 1000)
 axs[1].set_ylim(-5, 5)
 axs[1].set_yticks(-4:2:4)
@@ -85,7 +85,7 @@ axs[3].plot(l, fill(Cs, 2), color = "C2", ls = "dashed")
 axs[2].set_yticks(2.6:0.2:3.0)
 axs[2].set_title("\$\\Delta^{(C)}\$, Rössler")
 axs[3].set_title("\$\\Delta^{(C)}\$, ARMA")
-axs[3].set_yticks(3.7:0.1:3.8)
+axs[3].set_yticks(3.4:0.3:4.1)
 
 for ax in axs[2:3]
     ax.grid(false; axis = "x")
@@ -95,4 +95,4 @@ end
 
 fig.tight_layout(pad=0.3)
 fig.subplots_adjust(top = 0.85, left = 0.05, bottom = 0.1, right = 0.98, wspace = 0.3)
-# wsave(plotsdir("surrogates"), fig)
+wsave(plotsdir("7", "surrogates"), fig)

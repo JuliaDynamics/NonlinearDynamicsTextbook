@@ -7,18 +7,16 @@ import GLMakie
 using GLMakie: to_color, RGBf0, RGBAf0
 using DynamicalSystems
 
-
-fig = GLMakie.Figure(resolution = (figx*100*0.8, figy*100))
-axhe = fig[1,1] = GLMakie.Axis3(fig)
-axbi = fig[1,2] = GLMakie.Axis3(fig)
+fig = GLMakie.Figure(resolution = (figx*100*0.8, figy*100), fontsize = 32)
+axhe = GLMakie.Axis3(fig[1,1])
+axbi = GLMakie.Axis3(fig[1,2])
 display(fig)
 
 # %% Natural measure of henon map
-
 ε = 0.001
 x, y, p = begin
     ds = Systems.henon()
-    X = trajectory(ds, 10000000; Ttr = 100)
+    X = trajectory(ds, 10^7; Ttr = 100)
     p, b = binhist(X, ε)
     x = [a[1] for a in b]
     y = [a[2] for a in b]
@@ -39,8 +37,11 @@ GLMakie.zlims!(axhe, 0, 0.2)
 axhe.zlabel = "ρ"
 
 axhe.azimuth = 7.175530633326986
-axhe.elevation = 0.7226990816987244
+axhe.elevation = 0.53
 axhe.zticklabelsvisible = false
+axhe.zlabeloffset = 20
+axhe.xticklabelsize = 26
+axhe.yticklabelsize = 26
 axhe.title = "Hénon map"
 
 # %% same but for mushroom billiard
@@ -59,7 +60,7 @@ particles = [pc, pr, pr2]
 
 for i in 1:3
     x, y, p = begin
-        bmap, = boundarymap(particles[i], bd, 10^6)
+        bmap, = boundarymap(particles[i], bd, 10^7)
         X = Dataset(bmap)
         p, b = ChaosTools.binhist(X, ε)
         x = [a[1]/2 for a in b]
@@ -80,7 +81,11 @@ axbi.zticklabelsvisible = false
 axbi.xlabel = "ξ"
 axbi.ylabel = "sin(θ)"
 axbi.azimuth = 10.225530633326988
-axbi.elevation = 0.7226990816987244
+axbi.elevation = 0.53
+axbi.zlabeloffset = 20
+axbi.xticklabelsize = 26
+axbi.yticklabelsize = 26
 axbi.title = "mushroom billiard"
 
-# GLMakie.save(plotsdir("natural_densities.png"), fig)
+# %% Save
+GLMakie.save(plotsdir("8", "natural_densities.png"), fig)

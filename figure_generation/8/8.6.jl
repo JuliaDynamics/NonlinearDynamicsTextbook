@@ -20,7 +20,7 @@ for i in 1:2
     p = ps[i]
     N = 500
     bmap, = boundarymap(p, bd, N)
-    tr = regularize(Dataset(bmap))
+    tr = standardize(Dataset(bmap))
     R = RecurrenceMatrix(tr, εs[i])
     x, y = coordinates(R)
     ax.scatter(x, y, s = 1, color = cs[i])
@@ -41,7 +41,7 @@ axis_zoomin!(axs[2], axs[1], zbox, zbox, "C1")
 axs[2].axis("off")
 axs[2].set_aspect("equal")
 bmap, = boundarymap(pc, bd, 500)
-tr = regularize(Dataset(bmap))
+tr = standardize(Dataset(bmap))
 R = RecurrenceMatrix(tr, εs[1])
 x, y = coordinates(R)
 axs[2].scatter(x, y, s = 10, color = cs[1])
@@ -66,4 +66,4 @@ nice_arrow!(axs[2], xc, yc, xspan, yspan; tex = "\$\\ell=10\$", color = "C4")
 
 add_identifiers!(fig, (axs[1], axs[3]))
 fig.subplots_adjust(left = 0.08, bottom = 0.01, right = 0.95, top = 0.97, hspace = 0.1)
-# wsave(plotsdir("recurrence"), fig)
+wsave(plotsdir("8","recurrence"), fig)

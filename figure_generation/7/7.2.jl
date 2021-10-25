@@ -39,6 +39,6 @@ for j in 1:length(methods)
 end
 xlabel("coupling strength \$\\epsilon\$")
 ylabel("transfer entropy")
-legend(loc = "center")
+legend(loc = "center", handlelength = 1)
 tight_layout(pad=0.3)
-wsave(plotsdir("transfer"), fig)
+wsave(plotsdir("7", "transfer"), fig)

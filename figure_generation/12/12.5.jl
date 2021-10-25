@@ -67,8 +67,14 @@ zbox = ((65, 2.05), (100, 2.25))
 fp = trajectory(ec, 10.0, [83.56, 2075]; Ttr = 1000)[end]
 axs[2].plot([fp[1]], [fp[2]/1000]; marker = "o", mew=4, ms = 15, mec="C2", zorder = 99, mfc="white")
 
+
 # axs[2].arrow(
-#     fp[1] - 1, 2.102, 0, fp[2]/1000 - 2.102;
+#     fp[1], fp[2]/1000, 0,  2.1003 - fp[2]/1000,
+#     zorder = 99, width = 0.01,
+# )
+
+# axs[2].arrow(
+#     fp[1], 2.102, 0, fp[2]/1000 - 2.102;
 #     zorder = 99, width = 0.01, length_includes_head = true,
 #     # head_width = 2,
 #     head_starts_at_zero = true
@@ -82,4 +88,4 @@ fig.tight_layout(pad = 0.3)
 fig.subplots_adjust(wspace = 0.1)
 
 # add_identifiers!(fig)
-# wsave(plotsdir("carboncycle"), fig)
+wsave(plotsdir("12", "carboncycle"), fig)

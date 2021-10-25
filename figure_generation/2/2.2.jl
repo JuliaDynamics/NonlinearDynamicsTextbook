@@ -95,10 +95,10 @@ function vanderpoll(u, p, t)
     return SVector(xdot, ydot)
 end
 
-ds = ContinuousDynamicalSystem(vanderpoll, rand(2), 0.5)
-tr = trajectory(ds, 1000.0; Ttr = 100.0)
-
-axs[6].plot(columns(tr)...; color = "C2")
+ds = ContinuousDynamicalSystem(vanderpoll, [0.1, 0.2], 0.5)
+tr = trajectory(ds, 7.0; Ttr = 100.0)
+axs[6].clear()
+axs[6].plot(columns(tr)...; color = "C2", linestyle = "--")
 for (i, x) in enumerate(xgrid)
     for (j, y) in enumerate(ygrid)
         ux[i, j], uy[i, j] = ds.f(SVector(x, y), ds.p, 0)
@@ -115,4 +115,4 @@ ax.set_yticks([])
 ax.set_title("attractive limit cycle"; color = "C5")
 
 fig.subplots_adjust(bottom = 0.02, left = 0.02, top = 0.92, right = 0.97, hspace = 0.2)
-# wsave(plotsdir("2ddynamics"), fig)
+wsave(plotsdir("2", "2ddynamics"), fig)

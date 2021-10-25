@@ -89,4 +89,4 @@ end
 
 add_identifiers!(fig)
 fig.tight_layout(;pad = 0.33)
-# wsave(plotsdir("basin_stability"), fig)
+wsave(plotsdir("12", "basin_stability"), fig)

@@ -4,7 +4,9 @@ using DrWatson
 include(srcdir("style.jl"))
 using DynamicalSystems, PyPlot, Random
 
-tscolor = COLORS[1]
+
+cs = COLORS[[1,2,3]]
+tscolor = cs[1]
 
 fig = figure(figsize = (figx, figx/2))
 
@@ -18,7 +20,7 @@ ys = copy(xs)
 iters = 2000
 for (i, c) in enumerate(ic)
     tr = trajectory(ds, iters, c)
-    ax.scatter(columns(tr)..., s = 5)
+    ax.scatter(columns(tr)..., s = 5, c = cs[i])
 end
 # ax.set_xticks([0, 2π])
 ax.set_xticklabels([])
@@ -30,17 +32,17 @@ ax.set_xlabel("\$\\theta\$", labelpad = -5)
 ax.set_xlim(0, 2π)
 ax.set_ylim(0, 2π)
 ax.set_ylabel("\$v\$",labelpad=0)
-ax.set_title("Standard map")
+ax.set_title("Standard map", pad = 25)
 
-ax = subplot(234)
+axts = subplot(234)
 n = 100
 tr = trajectory(ds, n, ic[1])
-ax.plot(0:n, tr[:, 2], c = tscolor, marker = "o", lw = 1.0)
-ax.set_yticks([0, 2π])
-ax.set_yticklabels(["0", "2\$\\pi\$"])
-ax.set_ylabel("\$v\$",labelpad=-15)
-ax.set_xticks([0, n])
-ax.set_xlabel("\$n\$", labelpad = -20)
+axts.plot(0:n, tr[:, 2], c = tscolor, marker = "o", lw = 1.0)
+axts.set_yticks([0, 2π])
+axts.set_yticklabels(["0", "2\$\\pi\$"])
+axts.set_ylabel("\$v\$",labelpad=-15)
+axts.set_xticks([0, n])
+axts.set_xlabel("\$n\$", labelpad = -20)
 
 ds = Systems.lorenz()
 using3D()
@@ -48,12 +50,12 @@ axlo3d = subplot(232, projection = "3d")
 axlo3d.set_title("Lorenz-63", pad = 24)
 
 llw = 2.0
-tr = trajectory(ds, 100; Ttr = 100, dt = 0.01)
-axlo3d.plot3D(columns(tr)..., color = COLORS[1], lw = llw/2)
-tr = trajectory(ds, 10; Ttr = 1000, dt = 0.01)
-axlo3d.plot3D(columns(tr)..., color = COLORS[2], lw = 2llw)
-tr = trajectory(ds, 10, [10,20,40.0]; Ttr = 10, dt = 0.01)
-axlo3d.plot3D(columns(tr)..., color = COLORS[3], lw = llw)
+tr = trajectory(ds, 100; Ttr = 100, Δt = 0.01)
+axlo3d.plot3D(columns(tr)..., color = cs[1], lw = llw/2)
+tr = trajectory(ds, 10; Ttr = 1000, Δt = 0.01)
+axlo3d.plot3D(columns(tr)..., color = cs[2], lw = llw)
+tr = trajectory(ds, 10, [10,20,40.0]; Ttr = 10, Δt = 0.01)
+axlo3d.plot3D(columns(tr)..., color = cs[3], lw = llw)
 axlo3d.set_xlabel("\$x\$", labelpad = -10)
 axlo3d.set_ylabel("\$y\$", labelpad = -10)
 axlo3d.set_zlabel("\$z\$", labelpad = -10)
@@ -68,7 +70,7 @@ axlo3d.dist = 8
 
 tn = 30
 axlo2d = subplot(235)
-tr = trajectory(ds, tn; Ttr = 40, dt = 0.01)
+tr = trajectory(ds, tn; Ttr = 40, Δt = 0.01)
 axlo2d.plot(0:0.01:tn, tr[:, 1], c = tscolor)
 
 axlo2d.set_yticks([-15,15])
@@ -112,5 +114,5 @@ axhe2d.set_xlabel("\$t\$", labelpad = -20)
 
 
 fig.tight_layout(pad = 0.3)
-fig.subplots_adjust(right = 0.95)
-# wsave(plotsdir("trajectories"), fig)
+# WARNING! Run the above command once more before saving!
+wsave(plotsdir("1", "trajectories"), fig)

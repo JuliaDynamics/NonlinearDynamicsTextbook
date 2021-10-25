@@ -70,7 +70,7 @@ for i in 1:3
 	origin = allzoomaxs[i]
 	zoomin = allzoomaxs[i+1]
     zbox = allboxes[i]
-	c = ("C1", "C3", "C4")[i]
+	c = ("C1", "C3", "C5")[i]
     axis_zoomin!(zoomin, origin, zbox, zbox, c;	connect_lines = i > 1, lw = 4.0)
 end
 
@@ -103,4 +103,4 @@ axro.text(1.7, 7, "Rössler system", size = 36)
 fig.tight_layout(pad=0.3)
 fig.subplots_adjust(hspace = 0.3, wspace = 0.1)
 add_identifiers!(fig, (axlo, axro))
-# wsave(plotsdir("orbit_diagrams"), fig)
+wsave(plotsdir("4", "orbit_diagrams"), fig)

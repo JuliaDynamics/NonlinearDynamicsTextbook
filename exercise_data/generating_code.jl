@@ -197,7 +197,3 @@ end
 # scatter3D(co[1], co[2], co[3]; c = co[4])
 writedlm("10.csv", hcat(co...))
 
-
-# %%
-X = readdlm(desktop("pair0073.txt"))
-writedlm(projectdir("exercise_data", "15.csv"), X)

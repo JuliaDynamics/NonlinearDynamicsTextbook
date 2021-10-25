@@ -29,7 +29,7 @@ end
 
 fig, bmapax = billiard_bmap_plot(bd, ps;
 colors = colors, tail = 100000, steps = 100003, backgroundcolor = RGBf0(1,1,1),
-ms = 10, vr = 0.1)
+ms = 10, vr = 0.1, tailwidth = 2.5, arrowsize = 15, particle_size = 1.5)
 GLMakie.ylims!(bmapax, 0.2, 0.9)
 
 

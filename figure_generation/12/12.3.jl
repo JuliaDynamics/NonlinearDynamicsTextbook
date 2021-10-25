@@ -35,11 +35,12 @@ for (i, p) in enumerate([(0.1, 40.0), (0.15, 40.0), (0.1, 60.0)])
     ds = ContinuousDynamicalSystem(rate_dependent_system, u0, p0)
 
     maxt = 5000
-    tr = trajectory(ds, maxt; dt = 1.0)
+    tr = trajectory(ds, maxt; Δt = 1.0)
     T, ε = columns(tr)
-    c = ("C0", "C1", "C3")[i]
-    axbif.plot(ε, T; color = c)
-    axe.plot(0:maxt, ε; color = c)
+    c = ("C3", "C1", "C0")[i]
+    ls = ("-", "-.", "-")[i]
+    axbif.plot(ε, T; color = c, ls)
+    axe.plot(0:maxt, ε; color = c, ls)
 end
 axe.set_xlim(2300, 2700)
 axe.set_xlabel("\$t\$")
@@ -51,4 +52,4 @@ axbif.set_yticks(210:50:370)
 axbif.set_xlabel("\$\\epsilon\$"; labelpad = -20)
 axbif.set_ylabel("\$T\$"; labelpad = -20)
 fig.tight_layout(pad = 0.25)
-# wsave(plotsdir("rate_dependent"), fig)
+wsave(plotsdir("12", "rate_dependent"), fig)

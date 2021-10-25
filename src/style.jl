@@ -12,7 +12,7 @@ Round `x` with `n` sigdigits for display purposes.
 rdspl(x::Real, n = 3) = round(x, sigdigits=n)
 rdspl(x::AbstractVector, n = 3) = Tuple((round.(Float64.(x); sigdigits=n)))
 
-PyPlot.rc("lines", lw = 2.6)
+PyPlot.rc("lines", lw = 3)
 PyPlot.rc("errorbar", capsize = 6)
 PyPlot.rc("axes", grid = true)
 PyPlot.rc("grid", color = "0.75", alpha = 0.75)
@@ -23,7 +23,7 @@ PyPlot.rc("font", size = 28) # set default fontsize
 PyPlot.rc("xtick", labelsize = 24)
 PyPlot.rc("ytick", labelsize = 24)
 PyPlot.rc("axes", labelsize = MATHFONTSIZE)
-PyPlot.rc("legend", fontsize = 30)
+PyPlot.rc("legend", fontsize = 30, handlelength = 1)
 # PyPlot.rc("font", family = "Times New Roman") # Serif main font
 PyPlot.rc("font", family = "DejaVu Sans") # sans main font
 # PyPlot.rc("mathtext", rm = "sanserif", fontset="dejavusans") # sans math font
@@ -34,8 +34,6 @@ for z in ("x", "y")
     PyPlot.rc("$(z)tick.minor", size = 3, visible = false)
 end
 
-figx = 16 # default width correspoding to full text width
-figy = 5  # default height corresponding to 1 row of plots
 PyPlot.rc("figure", figsize = (figx, figy))
 PyPlot.rc("savefig", dpi = 600, transparent = true, format = "png")
 
@@ -77,7 +75,6 @@ bbox = Dict(:boxstyle => "round,pad=0.3", :facecolor=>"white", :alpha => 1.0)
 function add_identifiers!(fig = gcf(), axs = fig.get_axes(); 
         xloc = 0.975, yloc = 1
     )
-    bbox = Dict(:boxstyle => "round,pad=0.3", :facecolor=>"white", :alpha => 1.0)
     for (i, ax) in enumerate(axs)
         l = collect('a':'z')[i]
         if ax.name ≠ "3d"
@@ -163,4 +160,11 @@ function axis_zoomin!(zoomin, origin, zbox, rbox, co = "C0";
     end
     # remove axis for zoomin
     zoomin.axis("off")
+end
+
+function darken_color(color, amount=0.5)
+    c = matplotlib.colors.to_rgb(color)
+    c = matplotlib.colors.rgb_to_hsv(c)
+    c = (c[1], c[2], clamp(amount*c[3], 0, 1))
+    return matplotlib.colors.hsv_to_rgb(c)
 end

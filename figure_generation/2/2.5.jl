@@ -24,7 +24,7 @@ fig, axs = subplots(3, 1; figsize = (figx/2, 2figy), sharex = true)
 using FFTW, Statistics
 for (i, u) in enumerate(u0s)
    # r = trajectory(hh, 1000.0, u; dt = 0.1)[:, 1]
-    r = trajectory(hh, 30000.0, u; dt = δt)[:, 1]
+    r = trajectory(hh, 30000.0, u; dt = 0.01, Δt = δt, Ttr = 10)[:, 1]
     P = abs2.(rfft(r .- mean(r)))
     P[1] = P[2]
     ν = rfftfreq(length(r))/δt
@@ -47,4 +47,4 @@ end
 axs[2].set_ylabel("\$P / \\mathrm{max}(P)\$")
 axs[3].set_xlabel("frequency \$\\nu\$")
 fig.tight_layout(pad=0.3)
-# wsave(plotsdir("spectra"), fig)
+wsave(plotsdir("2", "spectra"), fig)

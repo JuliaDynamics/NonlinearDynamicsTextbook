@@ -75,4 +75,4 @@ axs[3].set_ylabel("\$x_n\$"; labelpad = -20)
 add_identifiers!(fig)
 fig.tight_layout(pad=0.3)
 
-# wsave(plotsdir("boundary_crisis"), fig)
+wsave(plotsdir("4", "boundary_crisis"), fig)

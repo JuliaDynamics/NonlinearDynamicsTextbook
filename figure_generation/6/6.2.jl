@@ -14,8 +14,9 @@ lo = Systems.lorenz([0, 10, 0.0])
 A = trajectory(lo, 1000; Ttr=1000, reltol = 1e-12, abstol = 1e-12)
 w = A[:, 1]
 close("all")
+N = 5000
+fig = figure(figsize = (figx, 0.75figy))
 
-fig = figure()
 for (i, τ) in enumerate((0, τ1, τ2, τ3))
     R = τ == 0 ? A : embed(w, d, τ)
     ax = subplot(1, 4, i, projection = "3d")
@@ -23,14 +24,14 @@ for (i, τ) in enumerate((0, τ1, τ2, τ3))
     color = i == 1 ? "C0" : "C1", lw = 1,
     zorder = 1)
     ax.view_init(elev=e, azim=θ)
-    ax.set_title(i == 1 ? "original" : "\$R:\\,\\tau=$(τ)\$", pad = -10)
+    ax.set_title(i == 1 ? "original" : "\$R:\\,\\tau=$(τ)\$", pad = -40)
     for a in (ax.xaxis, ax.yaxis, ax.zaxis); a.set_ticklabels([]); end
-    # dj = 167
-    # for j in (7827, )
-    #     χ, ψ, ζ = R[j:dj:j+dj, 1], R[j:dj:j+dj, 2], R[j:dj:j+dj, 3]
-    #     ax.scatter3D(χ, ψ, ζ,depthshade = false,c = "C2", zorder = 99, s = 50)
-    # end
-    ax.dist = 9
+    dj = 167
+    for j in (827, )
+        χ, ψ, ζ = R[j:dj:j+dj, 1], R[j:dj:j+dj, 2], R[j:dj:j+dj, 3]
+        ax.scatter3D(χ, ψ, ζ, depthshade = false, c = "C2", zorder = 99, s = 50)
+    end
+    ax.dist = 8
 end
 
 # ax = subplot(1, 4, 1, projection = "3d")
@@ -38,6 +39,6 @@ end
 # ax.view_init(elev=e, azim=θ)
 # for a in (ax.xaxis, ax.yaxis, ax.zaxis); a.set_ticklabels([]); end
 
-fig.tight_layout()
-fig.subplots_adjust(wspace = 0.0001, bottom = -0.1, top = 1, left = 0.0, right = 1)
-# wsave(plotsdir("taudemonstration"), fig)
+fig.tight_layout(pad=0.1)
+fig.subplots_adjust(wspace = 0.0001)#, bottom = -0.1, top = 1, left = 0.0, right = 1)
+# wsave(plotsdir("6", "taudemonstration"), fig)

@@ -25,9 +25,12 @@ pr2 = Particle(0.0f0, 1.9f0, 0.0f0)
 ps = [pc, pr, pr2]
 colors = [to_color(COLORS[i]) for i in (1,2,4)]
 
-fig, bmapax = billiard_bmap_plot(bd, ps; res = (1600, 600),
+fig, bmapax = billiard_bmap_plot(bd, ps; res = (1600, 500),
 colors = colors, tail = 100000, steps = 1000003, backgroundcolor = RGBf0(1,1,1),
+arrowsize = 15, particle_size = 1.5,
 ms = 5)
+
+display(fig)
 
 # interactive_billiard_bmap(bd)
 
@@ -36,4 +39,5 @@ ms = 5)
 bmapax.xlabelsize = 40
 bmapax.ylabelsize = 40
 bmapax.ylabelpadding = 15
-# GLMakie.save(plotsdir("mushroom.png"), fig)
+# GLMakie.save(plotsdir("8", "mushroom.png"), fig)
+GLMakie.save(plotsdir("8", "mushroom2.png"), fig)

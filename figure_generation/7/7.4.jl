@@ -20,7 +20,7 @@ function ccm(x, y, d, τ, w = τ)
 end
 
 ds = Systems.lorenz()
-tr = trajectory(ds, 1000; dt = 0.1, Ttr = 100)
+tr = trajectory(ds, 1000; Δt = 0.05, Ttr = 1000)
 x, y, z = columns(tr)
 τx = estimate_delay(x, "mi_min")
 τy = estimate_delay(y, "mi_min")
@@ -35,7 +35,7 @@ Ns = 50:50:3000
 fig = figure(figsize = (figx/2, figy))
 ax = gca()
 ax.plot(Ns, ρx; label = "\$x \\to y\$")
-ax.plot(Ns, ρy; label = "\$y \\to x\$", color = "C2")
+ax.plot(Ns, ρy; label = "\$y \\to x\$", color = "C2", ls = "dashed")
 ax.set_ylim(0.68, 1)
 ax.set_xticks(0:1000:3000)
 ax.legend(loc = "lower right")
@@ -43,4 +43,4 @@ ax.set_ylabel("CCM measure")
 ax.set_xlabel("\$N_s\$"; labelpad = -15)
 
 fig.tight_layout(pad=0.3)
-wsave(plotsdir("ccm_result"), fig)
+wsave(plotsdir("7", "ccm_result"), fig)

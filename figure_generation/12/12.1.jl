@@ -77,7 +77,7 @@ axs[1].set_yticks(1:4)
 axs[1].set_xticks(10:40:200)
 
 
-# %% data 2: perturbation growth lala
+# data 2: perturbation growth
 # fig, axs = subplots(1,2; figsize = (figx, figy))
 using Random
 # Random.seed!(77670011)
@@ -110,7 +110,7 @@ for (d, D) in enumerate(Ds)
 
     lDμ = vec(mean(lD; dims = 2))
     lDσ = vec(std(lD; dims = 2))
-    axs[2].plot(1:n, lDμ; color = "C$((0,1,3,4)[d])", label = "\$D=$D\$")
+    axs[2].plot(1:n, lDμ; color = "C$((0,1,2,3)[d])", label = "\$D=$D\$")
     # axs[2].fill_between(1:n, lDμ .- lDσ, lDμ .+ lDσ; color = "C$(d)", alpha = 0.5)
 end
 
@@ -122,5 +122,5 @@ axs[2].set_ylabel("\$\\lambda_\\mathrm{local}\$")
 axs[2].legend()
 axs[2].set_ylim(-0.1, 0.75)
 add_identifiers!(fig)
-fig.tight_layout(;pad = 0.3)
-# wsave(plotsdir("sparse_space"), fig)
+fig.tight_layout(;pad = 0.35)
+wsave(plotsdir("12", "sparse_space"), fig)

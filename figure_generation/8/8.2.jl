@@ -65,7 +65,7 @@ for (i, p) in enumerate(ps);
     axs[2].quiver(x0, y0, 0.04vx0, 0.04vy0; angles = "xy", scale = 0.5, width = 0.01, 
     color = partcol[i], zorder = 99)
     x,y = timeseries(p, scattering, terminate)
-    axs[2].plot(x, y; color = partcol[i], lw = 1, alpha = 0.75)
+    axs[2].plot(x, y; color = partcol[i], lw = 2, alpha = 0.75)
 end
 
 
@@ -106,4 +106,4 @@ ax3.set_ylabel("\$\\phi_o = \\mathbf{S}(\\phi_i)\$", labelpad = -25)
 fig.tight_layout(;pad = 0.25)
 fig.subplots_adjust(wspace = 0.1)
 
-# wsave(plotsdir("chaoticscattering"), fig)
+# wsave(plotsdir("8", "chaoticscattering"), fig)

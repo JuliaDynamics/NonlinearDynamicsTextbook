@@ -63,17 +63,19 @@ for i in 1:3
     botrow[i].plot(kx, ky, lw = 1.0)
     botrow[i].set_aspect("equal")
     botrow[i].add_artist(plt.Circle(
-        (0.5,0.28900), 0.5, lw=2.0, color="C1", alpha = 0.75, fill=false
+        (0.5,0.28900), 0.5, lw=2.0, color="C2", alpha = 0.75, fill=false
     ))
     botrow[i].axis("off")
 end
+
+
 for i in 1:2
     origin = botrow[i]
     zoomin = botrow[i+1]
     zbox = allpoints[i+1]
-    axis_zoomin!(zoomin, origin, zbox, zbox, "C$(i+1)"; α = 0.5)
+    axis_zoomin!(zoomin, origin, zbox, zbox, "C$((1,3)[i])"; α = 0.75)
 end
 
 fig.tight_layout(pad = 0.1)
 fig.subplots_adjust(wspace = 0.01, hspace = 0.01, bottom = 0.01, left = 0.01)
-# wsave(plotsdir("koch"), fig)
+wsave(plotsdir("5", "koch"), fig)

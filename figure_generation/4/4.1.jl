@@ -27,7 +27,7 @@ dp0 = 0.05
 dx0 = SVector(0.1)
 
 xs, ps, stability = continuation(f, J, u0, p0;
-    pmin, pmax, dp0, dx0
+    pmin, pmax, dp0, dx0, N = 1500
 )
 
 xs = [x[1] for x in xs]
@@ -56,23 +56,25 @@ arrow1ε = ps[_a:stable1] .- 0.03
 arrow1T = xs[_a:stable1] .- 5
 plot(arrow1ε, arrow1T; color = "C1", lw = 4.0)
 arrow(arrow1ε[end], arrow1T[end], 0, 50; 
-width = 0.005, head_length = 5.0, color = "C1", zorder = 99)
+width = 0.004, head_length = 5.0, color = "C1", zorder = 99)
 
-_b = 500
+_b = 200
 arrow2ε = ps[unstable1:unstable1+_b] .+ 0.03
 arrow2T = xs[unstable1:unstable1+_b] .+ 5
 
 plot(arrow2ε, arrow2T; color = "C0", lw = 4.0)
 arrow(arrow2ε[1], arrow2T[1], 0, -50; 
-width = 0.005, head_length = 5.0, color = "C0", zorder = 99)
+width = 0.004, head_length = 5.0, color = "C0", zorder = 99)
 
 # scatter(ps[stability], xs[stability]; c = "C3", legend = "stable")
 # scatter(ps[stability], xs[stability]; c = "C3", legend = "stable")
 legend()
-xlabel("\$\\varepsilon\$"; labelpad=-20)
-ylabel("\$T^*\$")
 xticks(0.3:0.2:0.9)
+yticks(200:50:350)
+ylabel("\$T^*\$", labelpad = -20)
+xlabel("\$\\varepsilon\$"; labelpad=-20)
 # yticks(230:50:310)
+# ylim(210, 320)
 # ax.xaxis.set_label_coords(0.4, -0.025)
-fig.tight_layout(pad=0.33)
-# wsave(plotsdir("bif_example"), fig)
+fig.tight_layout(pad=0.3)
+wsave(plotsdir("4", "bif_example"), fig)

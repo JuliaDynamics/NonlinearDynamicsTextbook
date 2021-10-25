@@ -16,7 +16,7 @@ N = 5000
 fig = figure()
 ax1 = subplot(131, projection = "3d")
 ax1.plot3D(x[1:N], y[1:N], z[1:N], lw = 1.0, color = "C0")
-ax1.set_title("original set \$A\$", pad = 30)
+ax1.set_title("original set \$A\$", pad = 0)
 ax = ax1
 for a in (ax.xaxis, ax.yaxis, ax.zaxis); a.set_ticklabels([]); end
 # ax1.text(-20, -20, 0, "\$D_0(A)\$ = $(round(D_A;digits=3))", color = "C1")
@@ -44,11 +44,11 @@ ax3 = subplot(133, projection = "3d")
 ax3.plot(R[1:N, 1], R[1:N, 2], R[1:N, 3], color = "C1", lw = 1.0)
 ax = ax3
 for a in (ax.xaxis, ax.yaxis, ax.zaxis); a.set_ticklabels([]); end
-ax3.set_title("reconstruction \$R\$", pad = 30)
+ax3.set_title("reconstruction \$R\$", pad = 0)
 # ax3.set_title("reconstruction \$R\$\n\$(\\gamma=$(γ),\\tau=$(τ))\$")
 # ax3.text(-5,-25,-10, "\$D_0(R)\$ = $(round(D_R;digits=3))", color = "C2")
 ax1.dist = 9
 ax3.dist = 9
 
 fig.tight_layout(pad = 0.3)
-# wsave(plotsdir("delayembedding"), fig)
+wsave(plotsdir("6", "delayembedding"), fig)
