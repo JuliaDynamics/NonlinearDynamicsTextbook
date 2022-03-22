@@ -26,7 +26,8 @@ for (j, (ax, x)) in enumerate(zip(axs, (-5:0, -10:0)))
     ax.axvspan(x[1], x[end], color = COLORS[4], alpha = 0.25)
     ax.grid("on")
     ax.plot(x, Dl, c = COLORS[3])
-    ax.text(x[2] + 1.5 + 0.5*(j-1), Dl[2], "\$D_2\$ = $D", color = COLORS[3], size = 30)
+    dimlabel = j == 1 ? "\$\\Delta_2^{(H)}\$" : "\$\\Delta^{(C)}\$"
+    ax.text(x[2] + 1.5 + 0.5*(j-1), Dl[2], "$(dimlabel) ≈ $D", color = COLORS[3], size = 30)
 end
 
 xtick = -11:3:1

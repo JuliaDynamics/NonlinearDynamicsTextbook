@@ -15,7 +15,8 @@ x .+= randn(length(x))*std(x)*0.1
 
 # generate autoregressive process
 Random.seed!(77163)
-η = randn(5000)
+rng = Random.MersenneTwister(77163)
+η = randn(rng, 5000)
 s = ones(5000)
 for n in 4:5000
     s[n] = 1.625s[n-1] - 0.284s[n-2] - 0.355s[n-3] + η[n] - 0.96η[n-1]
@@ -23,15 +24,14 @@ end
 s ./= std(s)
 
 # Do the surrogate calculation
-εro, εma = std.((x, s))./4
 algs = [RandomFourier(), AAFT()]
 names = ["FT", "AAFT"]
 sgx = [surrogenerator(x, m) for m in algs]
-sgs = [surrogenerator(s, m) for m in algs]
+sgs = [surrogenerator(s, m, rng) for m in algs]
 τx = estimate_delay(x, "ac_zero")
 τs = estimate_delay(s, "ac_zero")
-Cx = grassberger(embed(x, 3, τx))
-Cs = grassberger(embed(s, 4, τs))
+Cx = takens_best_estimate(embed(x, 3, τx), 0.25)[1]
+Cs = takens_best_estimate(embed(s, 4, τs), 0.25)[1]
 A = length(algs)
 
 xboxes = []
@@ -42,8 +42,8 @@ for i in 1:A
     for j in 1:100
         X = embed(sx(), 3, τx)
         S = embed(ss(), 4, τs)
-        push!(bx, grassberger(X))
-        push!(bs, grassberger(S))
+        push!(bx, takens_best_estimate(X, 0.25)[1])
+        push!(bs, takens_best_estimate(S, 0.25)[1])
     end
     push!(xboxes, bx)
     push!(sboxes, bs)
@@ -83,8 +83,8 @@ axs[2].plot(l, fill(Cx, 2), color = "C0", ls = "dashed")
 axs[3].plot(l, fill(Cs, 2), color = "C2", ls = "dashed")
 # axs[2].set_ylim(2.7, 3)
 axs[2].set_yticks(2.6:0.2:3.0)
-axs[2].set_title("\$\\Delta^{(C)}\$, Rössler")
-axs[3].set_title("\$\\Delta^{(C)}\$, ARMA")
+axs[2].set_title("\$\\Delta^{(T)}\$, Rössler")
+axs[3].set_title("\$\\Delta^{(T)}\$, ARMA")
 axs[3].set_yticks(3.4:0.3:4.1)
 
 for ax in axs[2:3]

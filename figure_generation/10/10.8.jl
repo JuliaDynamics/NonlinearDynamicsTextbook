@@ -46,7 +46,7 @@ xlabel(L"$t$")
 ax = gca()
 ax.set_xlim([0.,120.])
 # ax.set_ylim([-2.1,2.5])
-ax.legend([L"S/N"; L"I/N"; L"R/N"], fontsize = 25)
+ax.legend([L"S/N"; L"R/N"; L"I/N";], fontsize = 25)
 fig.tight_layout(pad=0.3)
 
 # save

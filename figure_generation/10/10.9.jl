@@ -1,7 +1,7 @@
 using DrWatson
 @quickactivate "NonlinearDynamicsTextbook"
 include(srcdir("style.jl"))
-using Agents, LightGraphs, DataFrames
+using Agents, Graphs, DataFrames
 # import GLMakie
 # using GraphMakie.NetworkLayout
 

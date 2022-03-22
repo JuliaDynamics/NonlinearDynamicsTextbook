@@ -18,12 +18,13 @@ xgrid = -0.3:0.02:1.1
 ygrid = -0.1:0.01:0.4
 
 function add_nullclines!(ax, a, b, ε, I)
-    u = -0.3:0.01:1.1
+    u = -0.5:0.01:1.1
     w1 = @. u
     w2 = @. a*u*(u-b)*(1-u) + I
     ax.plot(u, w1, "--", color = "C3", lw = 2.0)
     ax.plot(u, w2, ":", color = "C5")
-    ax.set_ylim(ygrid[1], ygrid[end])    # why is this necessary?
+    ax.set_xlim(xgrid[1], xgrid[end]) # plotting nullclines changes limits
+    ax.set_ylim(ygrid[1], ygrid[end])
 end
 
 function add_streamlines!(ax, a, b, ε, I)
@@ -86,6 +87,7 @@ ax.set_ylabel("\$w\$"; labelpad = -20)
 ax.set_xlabel("\$u\$"; labelpad = -20)
 ax.set_xticks([0, 1])
 ax.set_yticks([0, 0.4])
+ax.set_xlim(-0.3, 1.15)
 
 zbox = ((-0.05, -0.04), (0.25, 0.04))
 axis_zoomin!(axs[5],axs[3],  zbox, zbox, "C2"; lw = 1.0)
@@ -149,6 +151,7 @@ ax.set_ylabel("\$w\$"; labelpad = -20)
 ax.set_xlabel("\$u\$"; labelpad = -20)
 ax.set_xticks([0, 1])
 ax.set_yticks([0, 1])
+ax.set_xlim(-0.3, 1.15)
 
 # Fig F: limit cycle
 # -------------------------
@@ -169,6 +172,7 @@ ax.set_ylabel("\$w\$"; labelpad = -20)
 ax.set_xlabel("\$u\$"; labelpad = -20)
 ax.set_xticks([0, 1])
 ax.set_yticks([0, 0.6])
+ax.set_xlim(-0.5, 1.1)
 
 add_identifiers!(fig)
 fig.subplots_adjust(bottom = 0.08, left = 0.05, top = 0.95, right = 0.97, hspace = 0.2)

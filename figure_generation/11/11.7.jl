@@ -15,7 +15,7 @@ saveat = 0:dt:T
 dt = 0.25
 dx = 0.2 # spatial discretization
 xs = range(0, b1, step = dx) # space
-u0 = @. cos(xs) + 0.1*sin(xs/8) + 0.01*cos((2π/b)*xs)
+u0 = @. cos(xs) + 0.1*sin(xs/8) + 0.01*cos((2π/b1)*xs)
 ks = Vector(FFTW.rfftfreq(length(u0))/dx) # conjugate space (wavenumbers)
 
 forward_plan = FFTW.plan_rfft(u0)

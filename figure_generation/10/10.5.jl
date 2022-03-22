@@ -4,7 +4,7 @@
 using DrWatson
 @quickactivate "NonlinearDynamicsTextbook"
 include(srcdir("style.jl"))
-using DynamicalSystems, PyPlot
+using DynamicalSystems, PyPlot, Random, OrdinaryDiffEq
 
 function chimera_ODE(du,u,p,t)
     ω, R, alpha, nosc = p
@@ -81,11 +81,12 @@ for its = 1:nts
     end
 end
 
-im1 = axs[1+axi].pcolormesh(tvec,indx,qmat,cmap = "inferno") 
-axs[1+axi].set_xlabel(L"t"; labelpad = -20) 
-axs[axi+1].set_ylabel(L"i"; labelpad = -20)
-axs[axi+1].set_yticks([indx[1], indx[end]])
-axs[axi+1].set_xticks([0, tvec[end]])
+im1 = axs[1+axi].pcolormesh(indx,tvec,qmat',cmap = "inferno") 
+axs[1+axi].set_ylabel(L"t"; labelpad = -20) 
+axs[axi+1].set_yticks([0, tvec[end]])
+axs[axi+1].set_yticklabels(["0", "T"])
+axs[axi+1].set_xlabel(L"i"; labelpad = -20)
+axs[axi+1].set_xticks([indx[1], indx[end]])
 
 
 if axi == 2

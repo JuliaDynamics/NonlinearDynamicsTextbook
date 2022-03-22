@@ -2,7 +2,7 @@ using DrWatson
 @quickactivate "NonlinearDynamicsTextbook"
 include(srcdir("colorscheme.jl"))
 import GLMakie, GraphMakie
-using GraphMakie.NetworkLayout, LightGraphs
+using GraphMakie.NetworkLayout, Graphs
 
 n0 = 25
 seed = 42

@@ -12,6 +12,9 @@ testing
 corrections_for_proof
 *.pptx
 *.docx
+second_edition
+printed_versions
+proof
 
 ################################################################################
 #                          DrWatson Project Structure                          #

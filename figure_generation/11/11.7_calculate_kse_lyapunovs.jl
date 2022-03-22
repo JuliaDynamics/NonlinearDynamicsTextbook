@@ -128,7 +128,6 @@ b = 20      # length of spatial domain
 N = 4000    # steps to run the QR normalization
 Δt = 1.0    # timestep between normalizations
 dx = 0.2    # spatial discretization
-kport = 0.5
 
 for b in 20:20:60
     if b == 20
