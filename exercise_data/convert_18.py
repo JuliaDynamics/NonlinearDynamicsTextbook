@@ -76,4 +76,4 @@ for rec, signal in time_series_dict.items():
 
 # we finally create a dataframe and save it as a csv-file
 df = pd.DataFrame(time_series_dict)
-df.to_csv('exercise_data/18.csv', index=False)
+df.to_csv('exercise_data/18.csv', index=False, header=False)
