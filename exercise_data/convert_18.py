@@ -18,25 +18,25 @@ I am using python 3.8.10.
 [3] Goldberger, A., Amaral, L., Glass, L., Hausdorff, J., Ivanov, P. C., Mark, R., ... & Stanley, H. E. (2000). PhysioBank, PhysioToolkit, and PhysioNet: Components of a new research resource for complex physiologic signals. Circulation [Online]. 101 (23), pp. e215–e220.
 
 """
-import os
-
 import numpy as np
 import wget
 import pandas as pd
 from pyedflib import highlevel
-
+import os
 
 URL = 'https://physionet.org/files/siena-scalp-eeg/1.0.0/PN00/'
+
+downsampled_rate = 64
+sampling_rate = 512
 
 if not os.path.exists('Seizures-list-PN00.txt'):
         r = wget.download(URL+'Seizures-list-PN00.txt')
 
 # we will first read out all the relevant time stamps from the info file
-# (we actually only need the first one but it's easier to just iterate over all)
 reg_start_times = []
 seizure_start_times = []
 seizure_end_times = []
-with open('Seizures-list-PN00.txt', 'r', encoding='UTF-8') as f:
+with open('Seizures-list-PN00.txt', 'r') as f:
     for line in f.readlines():
         if 'Registration start' in line:
             reg_start_times.append(pd.to_datetime(line.split()[-1], format='%H.%M.%S'))
@@ -46,22 +46,34 @@ with open('Seizures-list-PN00.txt', 'r', encoding='UTF-8') as f:
             seizure_end_times.append(pd.to_datetime(line.split()[-1], format='%H.%M.%S'))
 
 # we now fill two dictionaries with the time series and the time stamps
+time_series_dict = {}
+time_stamp_dict = {}
+mx = -1e8
+# we ignore recording three because it has an impossible seizure end documented (days after end of recording)
+for recording in [1, 2, 4, 5]:
+    file = f'PN00-{recording}.edf'
+    if not os.path.exists(file):
+        r = wget.download(URL+file)
+        print(r)
+    # We get channel F8 as one of the right hemisphere channels
+    signal, *_ = highlevel.read_edf(file, ch_names='EEG F8')
+    print(f'Seizure {recording} started at '
+        f'{(seizure_start_times[recording-1] - reg_start_times[recording-1]).total_seconds()}s '
+        'and ended at '
+        f'{(seizure_end_times[recording-1] - reg_start_times[recording-1]).total_seconds()}s'
+    )
+    if mx < len(signal.flatten()):
+        mx = len(signal.flatten())
+    # downsample by taking only every sampling_rate//downsampled_rate step
+    time_series_dict[file] = signal.flatten()[::sampling_rate//downsampled_rate]
 
-file = 'PN00-1.edf'
-if not os.path.exists(file):
-    r = wget.download(URL+file)
-    print(r)
-# We get channel F8 as one of the right hemisphere channels
-signal, *_ = highlevel.read_edf(file, ch_names='EEG F8')
-time_stamps = [
-    (seizure_start_times[0] - reg_start_times[0]).total_seconds(),
-    (seizure_end_times[0] - reg_start_times[0]).total_seconds()
-]
-signal = signal.flatten()
-# here, we create a list of time stamps of each point in the time series
-time = np.arange(0, len(signal)/512, 1/512)
 
-print(f'seizure started at {time_stamps[0]}s and ended at {time_stamps[1]}s')
+# to put them in a csv-File, we need to make them all the same length-> fill with NaN
+for rec, signal in time_series_dict.items():
+    a = np.full((mx,), np.nan)
+    a[:len(signal)] = signal
+    time_series_dict[rec] = a
 
-result = np.vstack([time, signal])
-np.savetxt('exercise_data/18.csv', result.T)
+# we finally create a dataframe and save it as a csv-file
+df = pd.DataFrame(time_series_dict)
+df.to_csv('exercise_data/18.csv', index=False)
