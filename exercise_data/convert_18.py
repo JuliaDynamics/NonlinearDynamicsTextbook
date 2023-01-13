@@ -59,8 +59,10 @@ for recording in [1, 2, 4, 5]:
     signal, *_ = highlevel.read_edf(file, ch_names='EEG F8')
     print(f'Seizure {recording} started at '
         f'{(seizure_start_times[recording-1] - reg_start_times[recording-1]).total_seconds()}s '
+        f'index {(seizure_start_times[recording-1] - reg_start_times[recording-1]).total_seconds()*sampling_rate} '
         'and ended at '
-        f'{(seizure_end_times[recording-1] - reg_start_times[recording-1]).total_seconds()}s'
+        f'{(seizure_end_times[recording-1] - reg_start_times[recording-1]).total_seconds()}s '
+        f'index {(seizure_end_times[recording-1] - reg_start_times[recording-1]).total_seconds()*sampling_rate}'
     )
     if mx < len(signal.flatten()):
         mx = len(signal.flatten())
@@ -76,4 +78,4 @@ for rec, signal in time_series_dict.items():
 
 # we finally create a dataframe and save it as a csv-file
 df = pd.DataFrame(time_series_dict)
-df.to_csv('exercise_data/18.csv', index=False, header=False)
+df.to_csv('exercise_data/18.csv', index=False, header=False, sep='\t')
