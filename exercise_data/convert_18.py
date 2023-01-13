@@ -70,7 +70,7 @@ for recording in [1, 2, 4, 5]:
 
 # to put them in a csv-File, we need to make them all the same length-> fill with NaN
 for rec, signal in time_series_dict.items():
-    a = np.full((mx,), np.nan)
+    a = np.full((mx//sampling_rate*downsampled_rate,), np.nan)
     a[:len(signal)] = signal
     time_series_dict[rec] = a
 
