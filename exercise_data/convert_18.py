@@ -64,4 +64,4 @@ time = np.arange(0, len(signal)/512, 1/512)
 print(f'seizure started at {time_stamps[0]}s and ended at {time_stamps[1]}s')
 
 result = np.vstack([time, signal])
-np.savetxt('18.csv', result.T)
+np.savetxt('exercise_data/18.csv', result.T)
