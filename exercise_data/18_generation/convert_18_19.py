@@ -50,7 +50,7 @@ time_series_dict = {}
 time_stamp_dict = {}
 mx = -1e8
 # we ignore recording three because it has an impossible seizure end documented (days after end of recording)
-for recording in [1, 2, 4, 5]:
+for recording in [1, 4]:
     file = f'PN00-{recording}.edf'
     if not os.path.exists(file):
         r = wget.download(URL+file)
@@ -67,7 +67,7 @@ for recording in [1, 2, 4, 5]:
     if mx < len(signal.flatten()):
         mx = len(signal.flatten())
     # downsample by taking only every sampling_rate//downsampled_rate step
-    time_series_dict[f'#{file}'] = signal.flatten()[::sampling_rate//downsampled_rate]
+    time_series_dict[f'{file}'] = signal.flatten()[::sampling_rate//downsampled_rate]
 
 
 # to put them in a csv-File, we need to make them all the same length-> fill with NaN
@@ -77,5 +77,7 @@ for rec, signal in time_series_dict.items():
     time_series_dict[rec] = a
 
 # we finally create a dataframe and save it as a csv-file
-df = pd.DataFrame(time_series_dict)
-df.to_csv('exercise_data/18.csv', index=False, header=False, sep='\t')
+df = pd.DataFrame({'PN00-1': time_series_dict['PN00-1.edf']})
+df.to_csv('exercise_data/19.csv', index=False, header=False, sep='\t')
+df = pd.DataFrame({'PN00-4': time_series_dict['PN00-4.edf']})
+df.to_csv('exercise_data/19.csv', index=False, header=False, sep='\t')
