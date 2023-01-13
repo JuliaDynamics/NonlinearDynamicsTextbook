@@ -65,7 +65,7 @@ for recording in [1, 2, 4, 5]:
     if mx < len(signal.flatten()):
         mx = len(signal.flatten())
     # downsample by taking only every sampling_rate//downsampled_rate step
-    time_series_dict[file] = signal.flatten()[::sampling_rate//downsampled_rate]
+    time_series_dict[f'#{file}'] = signal.flatten()[::sampling_rate//downsampled_rate]
 
 
 # to put them in a csv-File, we need to make them all the same length-> fill with NaN
