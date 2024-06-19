@@ -1,5 +1,12 @@
 # Nonlinear Dynamics: A concise introduction interlaced with code
 
+> [!IMPORTANT]
+> This repository is currently being updated to DynamicalSystems.jl v3
+> as well as porting all plotting to the Makie ecosystem.
+> To obtain the code exactly corresponding to the first edition of the textbook
+> click "Releases" in the right column, and then select "First Edition".
+> Download that version of the repository and proceed as explained in the README.md.
+
 ![**Nonlinear Dynamics: A concise introduction interlaced with code**](cover.png)
 
 This repository holds material related with the textbook _Nonlinear Dynamics: A concise introduction interlaced with code_, co-authored by George Datseris and Ulrich Parlitz. The textbook will be published by Springer-Nature, in the series Undergraduate Lecture Notes in Physics.
