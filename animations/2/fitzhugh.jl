@@ -1,9 +1,7 @@
-# Interactive clickable FitzHughNagumo state space
-
 using DrWatson
 @quickactivate "NonlinearDynamicsTextbook"
-include(srcdir("colorscheme.jl"))
-using GLMakie, DynamicalSystems, InteractiveDynamics
+include(srcdir("theme.jl"))
+using GLMakie, DynamicalSystems
 
 a = 3.
 b = -0.05
@@ -28,7 +26,7 @@ lines!(ax, us, w1; color = COLORS[1], linewidth = 2, linestyle = :dash)
 lines!(ax, us, w2; color = COLORS[2], linewidth = 2, linestyle = :dot)
 
 # Create trajectories on point selection
-spoint = select_point(ax.scene)
+spoint = select_point(ax.scene; marker = :circle)
 on(spoint) do pos
     tr = trajectory(fh, 10000, SVector(pos...))
     lines!(ax, columns(tr)...;
