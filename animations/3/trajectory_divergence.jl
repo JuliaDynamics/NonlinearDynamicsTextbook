@@ -11,8 +11,8 @@ u0s =  [u0 .+ i*1e-3 for i in 1:3]
 
 diffeq = (alg = Tsit5(), dtmax = 0.01)
 
-figure, obs = interactive_evolution_timeseries(
-    ds, u0s; tail = 1000, diffeq, colors = to_color.(COLORSCHEME[1:3]),
+figure, obs = interactive_trajectory_timeseries(
+    ds, u0s; tail = 1000, diffeq, colors = COLORS[1:3],
     linekwargs = (linewidth = 2.0,)
 )
 
@@ -23,9 +23,5 @@ framerate = 30
 total_time = 15 # in seconds
 framen = framerate*total_time
 
-record(figure, joinpath(@__DIR__, "trajectory_divergence.mp4"); framerate) do io
-    for i = 1:framen
-        sleep(1/framerate)
-        recordframe!(io)
-    end
-end
+# %%
+record_interaction(fig, string(@__FILE__)[1:end-2]*"mp4"; total_time = 10)

@@ -2,7 +2,7 @@
 
 julia_version = "1.10.0"
 manifest_format = "2.0"
-project_hash = "cef5bfe82792b49e3018d3e61b08cce0052187e3"
+project_hash = "c1acc52ecc33fac8f38064c67735a9a4b93a7fc0"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "fa0822e5baee6e23081c2685ae27265dabee23d8"
@@ -1474,6 +1474,14 @@ deps = ["ColorTypes", "GeometryBasics", "IntervalSets", "Observables"]
 git-tree-sha1 = "638bc817096742e8302f7b0b972ee5701fe00e97"
 uuid = "20f20a25-4f0e-4fdf-b5d1-57303727442b"
 version = "0.8.3"
+
+[[deps.MakieThemeing]]
+deps = ["DrWatson", "Makie", "Random"]
+git-tree-sha1 = "407b87ad48e950ad7a475f9934ff64d08afa632a"
+repo-rev = "main"
+repo-url = "https://github.com/Datseris/MakieThemeing.jl"
+uuid = "24dc64cf-9d0d-406f-af0b-13a4c1186bb2"
+version = "0.1.0"
 
 [[deps.ManualMemory]]
 git-tree-sha1 = "bcaef4fc7a0cfe2cba636d84cda54b5e4e4ca3cd"

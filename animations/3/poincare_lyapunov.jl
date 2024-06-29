@@ -2,15 +2,16 @@
 # color coded with lyapunov exponent
 using DrWatson
 @quickactivate "NonlinearDynamicsTextbook"
-include(srcdir("colorscheme.jl"))
+include(srcdir("theme.jl"))
 
-using DynamicalSystems, InteractiveDynamics
+using DynamicalSystems
 using OrdinaryDiffEq
 import GLMakie
 
 diffeq = (alg = Vern9(), abstol = 1e-9, reltol = 1e-9)
 
 hh = Systems.henonheiles()
+hh = CoupledODEs(hh, diffeq)
 
 potential(x, y) = 0.5(x^2 + y^2) + (x^2*y - (y^3)/3)
 energy(x,y,px,py) = 0.5(px^2 + py^2) + potential(x,y)
@@ -29,7 +30,7 @@ plane = (1, 0.0) # first variable crossing 0
 
 cmap = cgrad(:cividis)
 function λcolor(u)
-    λ = lyapunov(hh, 10000; u0 = u, diffeq...)
+    λ = lyapunov(hh, 10000; u0 = u)
     λmax = 0.06
     v = clamp(λ/λmax, 0, 1)
     return cmap.colors[round(Int, v*255 + 1)]
@@ -38,7 +39,7 @@ end
 
 fig, state = interactive_poincaresos(
     hh, plane, (2, 4), complete;
-    labels = ("q₂" , "p₂"), color = λcolor, diffeq...
+    labels = ("q₂" , "p₂"), color = λcolor
 )
 
 # %%

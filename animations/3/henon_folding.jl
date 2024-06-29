@@ -1,8 +1,8 @@
 using DrWatson
 @quickactivate "NonlinearDynamicsTextbook"
-include(srcdir("colorscheme.jl"))
-using InteractiveDynamics, DynamicalSystems
-import GLMakie
+include(srcdir("theme.jl"))
+using CairoMakie
+using StaticArrays
 
 xmax = 1.0
 xmin = -1.0
@@ -29,32 +29,29 @@ end
 function linear_transition!(o, p1, p2, steps, io)
     for i in 1:steps # assumes we start with o[] = p1
         o[] = p1 .+ (p2 .- p1) .* i/steps
-        GLMakie.recordframe!(io)
-        # sleep(0.01) # change to record frame
+        recordframe!(io)
     end
+    recordframe!(io)
 end
 
 iterations = 10
 steps = 20
 
-fig = GLMakie.Figure(); display(fig)
-ax = GLMakie.Axis(fig[1,1])
-o = GLMakie.Observable(ics)
-GLMakie.scatter!(ax, o; 
-    color = COLORS[1], strokewidth = 0.5, strokecolor = :black, markersize = 5
+fig = Figure(); display(fig)
+ax = Axis(fig[1,1])
+o = Observable(ics)
+scatter!(ax, o;
+    strokewidth = 0.5, strokecolor = :black, markersize = 5
 )
-ax.limits = ((-2.5,2.5),(-1.5,1.5))
+ax.limits = ((-2.5,2.5), (-1.5,1.5))
 
-GLMakie.record(fig, string(@__FILE__)[1:end-2]*"mp4"; framerate = 30) do io
+record(fig, string(@__FILE__)[1:end-2]*"mp4"; framerate = 30) do io
     for j in 1:iterations
         p1, p2, p3 = three_phases(ics)
         linear_transition!(o, ics, p1, steps, io)
-        GLMakie.recordframe!(io)
         linear_transition!(o, p1, p2, steps, io)
-        GLMakie.recordframe!(io)
         linear_transition!(o, p2, p3, steps, io)
-        GLMakie.recordframe!(io)
         global ics = p3
-        GLMakie.recordframe!(io)
+        recordframe!(io)
     end
 end

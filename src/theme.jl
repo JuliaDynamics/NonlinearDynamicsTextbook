@@ -1,25 +1,15 @@
-if !any(name -> isdefined(Main, name), [:Makie, :GLMakie, :CairoMakie])
-    using CairoMakie
-end
-import Downloads
+using CairoMakie
 
 # decide theme:
 ENV["COLORSCHEME"] = "JuliaDynamics" # or others, see `plottheme.jl`
 ENV["BGCOLOR"] = :white       # anything for `backgroundcolor` of Makie
 ENV["AXISCOLOR"] = :black           # color of all axis elements (labels, spines, ticks)
 
-try
-    Downloads.download(
-        "https://raw.githubusercontent.com/Datseris/plottheme/main/plottheme.jl",
-        joinpath(@__DIR__, "_plottheme.jl")
-    )
-    cp(joinpath(@__DIR__, "_plottheme.jl"), joinpath(@__DIR__, "plottheme.jl"); force = true)
-    rm(joinpath(@__DIR__, "_plottheme.jl"); force = true)
-catch
-end
+using MakieThemeing
 
-include("plottheme.jl")
-
+Makie.update_theme!(;
+    # size = (figwidth, figheight),
+)
 
 """
     record_interaction(file, figure; framerate = 30, total_time = 10)
@@ -49,3 +39,5 @@ function record_interaction(file, figure;
 end
 record_interaction(figure::Figure, file; kwargs...) =
 record_interaction(file, figure; kwargs...)
+
+export record_interaction
