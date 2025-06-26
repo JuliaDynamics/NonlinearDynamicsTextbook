@@ -1,11 +1,18 @@
 # Nonlinear Dynamics: A concise introduction interlaced with code
 
+## Important notice
+
 > [!IMPORTANT]
-> This repository is currently being updated to DynamicalSystems.jl v3
+> This repository is currently being updated to DynamicalSystems.jl v3, Julia v1.12,
 > as well as porting all plotting to the Makie ecosystem.
+> The code in the main branch will likely not work!
 > To obtain the code exactly corresponding to the first edition of the textbook
-> click "Releases" in the right column, and then select "First Edition".
-> Download that version of the repository and proceed as explained in the README.md.
+> click "Releases", and then select "First Edition", and then download.
+> Proceed as explained in the README.md in the downloaded folder BUT
+> ensure that you are using Julia v1.7 - this is the only version that we can guarantee
+> that the code of the first edition works!
+
+---
 
 ![**Nonlinear Dynamics: A concise introduction interlaced with code**](cover.png)
 
@@ -17,6 +24,8 @@ This repository holds material related with the textbook _Nonlinear Dynamics: A 
 **Please do not open issues to ask questions on installing and running Julia or Julia packages, or questions on nonlinear dynamics in this repository.** Instead, open issues directly related with the book: found typos, problems with the source code contained here, suggestions for improvement of existing book sections, suggestions for new book sections, contributing new exercises, new multiple choice questions, etc. All contributions will be properly acknowledged whenever a new edition is out.
 
 **Contents**
+
+0. [Important notice](#important-notice)
 1. [Sample material](#sample-material)
 2. [Tutorials for Julia and related packages](#tutorials-for-julia-and-related-packages)
 3. [Reproducing figures](#reproducing-figures)
